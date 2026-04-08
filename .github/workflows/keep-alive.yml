@@ -12,7 +12,7 @@ jobs:
       - name: Ping Supabase
         run: |
           curl -s \
-            "${{ secrets.SUPABASE_URL }}/rest/v1/entries?limit=1" \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/keep_alive?limit=1" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
             -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
             -o /dev/null -w "Status: %{http_code}\n"
