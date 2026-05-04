@@ -2,8 +2,8 @@ name: Keep Supabase Alive
 
 on:
   schedule:
-    - cron: '0 12 * * 1'
-  workflow_dispatch:
+    - cron: '0 12 * * 1' # Jeden Montag um 12:00 Uhr
+  workflow_dispatch:     # Erlaubt manuelles Starten
 
 jobs:
   ping:
@@ -11,8 +11,7 @@ jobs:
     steps:
       - name: Ping Supabase
         run: |
-          curl -s \
-            "${{ secrets.SUPABASE_URL }}/rest/v1/keep_alive?limit=1" \
-            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -o /dev/null -w "Status: %{http_code}\n"
+          curl -s -X GET "${{ secrets.SUPABASE_URL }}/rest/v1/" \
+          -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+          -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
+          -o /dev/null -w "Status: %{http_code}\n"
